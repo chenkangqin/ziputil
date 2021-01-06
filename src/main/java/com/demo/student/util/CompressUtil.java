@@ -1,4 +1,4 @@
-package com.demo.student.util;
+package com.demo.zip.util;
 
 
 import net.lingala.zip4j.core.ZipFile;
@@ -7,7 +7,6 @@ import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.util.Zip4jConstants;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -17,12 +16,11 @@ import java.util.stream.Stream;
  */
 public class CompressUtil {
     public static void main(String[] args) throws IOException, ZipException {
-        String path = "F:/中文";
-        String format = "rar";
+        String path = "D:/迅雷下载";
         List<File> list = new ArrayList<File>();
         File file = new File(path);
         getAllMp4File(file,list);
-        list.stream().forEach(file1 -> System.out.println(file1.getPath()));
+        //list.stream().forEach(file1 -> System.out.println(file1.getPath()));
         ZipParameters parameters = new ZipParameters();
         parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
         parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
@@ -32,7 +30,7 @@ public class CompressUtil {
         parameters.setPassword("hello");
         for (int i = 0; i < list.size(); i++) {
             File tempFile = list.get(i);
-            ZipFile zipFile = new ZipFile("F:/MYZIP/"+i+".zip");
+            ZipFile zipFile = new ZipFile("D:/新建文件夹/"+(i+900)+".zip");
             zipFile.addFile(tempFile,parameters);
         }
 
@@ -48,7 +46,7 @@ public class CompressUtil {
         Stream.of(file.listFiles()).forEach(file1 -> {
             if(file1.isDirectory()){
                 getAllMp4File(file1,list);
-            }else if(file1.getName().endsWith("txt")){
+            }else if(file1.getName().endsWith("mp4")||file1.getName().endsWith("rmvb")||file1.getName().endsWith("mkv")){
                 list.add(file1);
             }
         });
